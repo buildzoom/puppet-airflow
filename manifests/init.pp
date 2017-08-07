@@ -109,6 +109,10 @@
 #   The scheduler constantly tries to trigger new tasks (look at the
 #   scheduler section in the docs for more information). This defines
 #   how often the scheduler should run (in seconds).
+# [*max_threads*]
+#   The scheduler can run multiple threads in parallel to schedule dags.
+#   This defines how many threads will run. However airflow will never
+#   use more threads than the amount of cpu cores available.
 ###### Puppet hashes ######
 # [*statsd_settings*]
 #   Statsd settings dictionary.

@@ -154,6 +154,11 @@ job_heartbeat_sec = <%= @job_heartbeat_sec %>
 # how often the scheduler should run (in seconds).
 scheduler_heartbeat_sec = <%= @scheduler_heartbeat_sec %>
 
+# The scheduler can run multiple threads in parallel to schedule dags.
+# This defines how many threads will run. However airflow will never
+# use more threads than the amount of cpu cores available.
+max_threads = <%= @max_threads %>
+
 
 <% if @statsd_settings['statsd_on'] -%>
 # Statsd (https://github.com/etsy/statsd) integration settings
