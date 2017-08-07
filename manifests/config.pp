@@ -3,19 +3,6 @@
 # AIRFLOW_HOME environment variable and airflow.cfg file. 
 #
 class airflow::config inherits airflow {
-  # Create user and group
-  group { $airflow::group:
-    ensure => 'present',
-    name   => $airflow::group,
-    gid    => $airflow::gid,
-  } ->
-  user { $airflow::user:
-    ensure     => 'present',
-    shell      => $airflow::shell,
-    managehome => true,
-    uid        => $airflow::uid,
-    gid        => $airflow::group
-  }
   # Create airflow base home folders
   file { $airflow::home_folder:
     ensure  => directory,

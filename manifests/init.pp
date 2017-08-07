@@ -137,8 +137,6 @@ class airflow (
   $user_home_folder        = $airflow::params::user_home_folder,
   $shell                   = $airflow::params::shell,
   $folders_mode            = $airflow::params::folders_mode,
-  $gid                     = $airflow::params::gid,
-  $uid                     = $airflow::params::uid,
 
   # General settings
   $log_folder              = $airflow::params::log_folder,
@@ -193,6 +191,9 @@ class airflow (
   $job_heartbeat_sec       = $airflow::params::job_heartbeat_sec,
   $scheduler_heartbeat_sec = $airflow::params::scheduler_heartbeat_sec,
 
+  ## Virtualenv settings
+  $virtualenv              = $airflow::params::virtualenv,
+
   ### START hiera lookups ###
   $statsd_settings         = $airflow::params::statsd_settings,
   $ldap_settings           = $airflow::params::ldap_settings,
@@ -206,6 +207,8 @@ class airflow (
   validate_string($service_ensure)
   validate_string($package_name)
   validate_string($worker_class)
+  validate_string($folders_mode)
+  validate_string($virtualenv)
 
   validate_absolute_path($user_home_folder)
   validate_absolute_path($shell)
@@ -215,15 +218,6 @@ class airflow (
   validate_absolute_path($dags_folder)
   validate_absolute_path($plugins_folder)
 
-  validate_integer($folders_mode)
-
-  if $gid != undef {
-    validate_integer($gid)
-  }
-
-  if $uid != undef {
-    validate_integer($uid)
-  }
 
   validate_integer($parallelism)
   validate_integer($dag_concurrency)
@@ -242,14 +236,6 @@ class airflow (
   validate_bool($expose_config)
   validate_bool($load_examples)
   validate_bool($donot_pickle)
-
-  # Module compatibility check
-  if ! ($::operatingsystem in ['RedHat', 'CentOS']
-    and $::operatingsystemmajrelease == '7')
-  {
-      warning("Airflow module has not been tested with
-       ${::operatingsystem} Release: ${::operatingsystemmajrelease}")
-  }
 
   include airflow::config,
           airflow::install
