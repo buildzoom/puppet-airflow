@@ -194,6 +194,7 @@ class airflow (
   ## Scheduler settings
   $job_heartbeat_sec       = $airflow::params::job_heartbeat_sec,
   $scheduler_heartbeat_sec = $airflow::params::scheduler_heartbeat_sec,
+  $max_threads			   = $airflow::params::max_threads,
 
   ## Virtualenv settings
   $virtualenv              = $airflow::params::virtualenv,
