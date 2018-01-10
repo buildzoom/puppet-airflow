@@ -159,6 +159,14 @@ scheduler_heartbeat_sec = <%= @scheduler_heartbeat_sec %>
 # use more threads than the amount of cpu cores available.
 max_threads = <%= @max_threads %>
 
+# Turn off scheduler catchup by setting this to False.
+# Default behavior is unchanged and
+# Command Line Backfills still work, but the scheduler
+# will not do scheduler catchup if this is False,
+# however it can be set on a per DAG basis in the
+# DAG definition (catchup)
+catchup_by_default = <%= @catchup_by_default %>
+
 
 <% if @statsd_settings['statsd_on'] -%>
 # Statsd (https://github.com/etsy/statsd) integration settings

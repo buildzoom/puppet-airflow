@@ -113,6 +113,13 @@
 #   The scheduler can run multiple threads in parallel to schedule dags.
 #   This defines how many threads will run. However airflow will never
 #   use more threads than the amount of cpu cores available.
+# [*catchup_by_default*]
+#   Turn off scheduler catchup by setting this to False.
+#   Default behavior is unchanged and
+#   Command Line Backfills still work, but the scheduler
+#   will not do scheduler catchup if this is False,
+#   however it can be set on a per DAG basis in the
+#   DAG definition (catchup)
 ###### Puppet hashes ######
 # [*statsd_settings*]
 #   Statsd settings dictionary.
@@ -195,6 +202,7 @@ class airflow (
   $job_heartbeat_sec       = $airflow::params::job_heartbeat_sec,
   $scheduler_heartbeat_sec = $airflow::params::scheduler_heartbeat_sec,
   $max_threads			   = $airflow::params::max_threads,
+  $catchup_by_default	   = $airflow::params::catchup_by_default,
 
   ## Virtualenv settings
   $virtualenv              = $airflow::params::virtualenv,
@@ -241,6 +249,7 @@ class airflow (
   validate_bool($expose_config)
   validate_bool($load_examples)
   validate_bool($donot_pickle)
+  validate_bool($catchup_by_default)
 
   include airflow::config,
           airflow::install

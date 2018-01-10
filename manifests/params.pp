@@ -71,6 +71,7 @@ class airflow::params {
   $job_heartbeat_sec         = 5
   $scheduler_heartbeat_sec   = 5
   $max_threads				 = 2
+  $catchup_by_default		 = False
   
   ### START hiera lookups ###
   $ldap_settings             = {}
